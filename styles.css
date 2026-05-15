@@ -697,19 +697,51 @@ section {
 }
 
 /* Link para pular para conteúdo principal */
+/* Badge de Acessibilidade */
+.accessibility-badge {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--cor-verde), var(--cor-verde-claro));
+    color: var(--cor-branco);
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    z-index: 50;
+    cursor: help;
+    transition: all 0.3s;
+}
+
+.accessibility-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.accessibility-badge span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Link para pular para conteudo principal */
 .skip-link {
     position: absolute;
     top: -40px;
     left: 0;
     background: var(--cor-verde);
     color: var(--cor-branco);
-    padding: 8px;
+    padding: 12px 20px;
     text-decoration: none;
     z-index: 100;
+    font-weight: 600;
+    border-radius: 0 0 8px 0;
 }
 
 .skip-link:focus {
     top: 0;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
 /* Foco visível para navegação por teclado */
