@@ -1,0 +1,854 @@
+/* ============================================
+   AGRINHO 2026 - AGRO FORTE, FUTURO SUSTENTÁVEL
+   Estilos CSS - Projeto Front-End HTML/CSS/JS
+   ============================================ */
+
+/* ============================================
+   1. VARIÁVEIS E CONFIGURAÇÕES GLOBAIS
+   ============================================ */
+
+:root {
+    /* Cores - Paleta Verde Sustentável */
+    --primary-color: #4CAF50;
+    --primary-light: #81C784;
+    --primary-dark: #2E7D32;
+    --primary-darker: #1B5E20;
+    --accent-color: #FF9800;
+    --background-light: #F1F8F4;
+    --background-lighter: #E8F5E9;
+    --text-dark: #1B5E20;
+    --text-light: #558B2F;
+    --text-muted: #424242;
+    --border-color: #81C784;
+    --white: #FFFFFF;
+    
+    /* Tipografia */
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Raleway', sans-serif;
+    
+    /* Espaçamento */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    
+    /* Raios de borda */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 15px;
+    --radius-full: 50px;
+    
+    /* Sombras */
+    --shadow-sm: 0 4px 15px rgba(76, 175, 80, 0.1);
+    --shadow-md: 0 10px 40px rgba(76, 175, 80, 0.15);
+    --shadow-lg: 0 15px 40px rgba(76, 175, 80, 0.2);
+}
+
+/* ============================================
+   2. RESET E ESTILOS BASE
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-secondary);
+    color: var(--text-dark);
+    background-color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
+
+/* ============================================
+   3. CONTAINER E LAYOUT
+   ============================================ */
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+/* ============================================
+   4. NAVEGAÇÃO
+   ============================================ */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(25, 75, 50, 0.7) 0%, rgba(25, 75, 50, 0) 100%);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    padding: var(--spacing-sm) var(--spacing-md);
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: linear-gradient(180deg, rgba(25, 75, 50, 0.95) 0%, rgba(25, 75, 50, 0.8) 100%);
+    border-bottom: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--primary-light);
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+}
+
+.nav-menu {
+    display: none;
+    list-style: none;
+    gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .nav-menu {
+        display: flex;
+    }
+}
+
+.nav-link {
+    color: var(--background-lighter);
+    text-decoration: none;
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-light);
+}
+
+.menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--primary-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .menu-toggle {
+        display: none;
+    }
+}
+
+.cta-button {
+    display: none;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 768px) {
+    .cta-button {
+        display: block;
+    }
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+}
+
+/* ============================================
+   5. HERO SECTION
+   ============================================ */
+
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(25, 75, 50, 0.6) 0%, rgba(56, 142, 60, 0.5) 100%);
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 900px;
+    padding: var(--spacing-md);
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-title {
+    font-family: var(--font-primary);
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-title .highlight {
+    color: var(--primary-light);
+}
+
+.hero-subtitle {
+    font-family: var(--font-secondary);
+    font-size: 1.3rem;
+    color: var(--background-lighter);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   6. BOTÕES
+   ============================================ */
+
+.btn {
+    border: none;
+    border-radius: var(--radius-full);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 1rem 2.5rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.6);
+}
+
+.btn-primary:active {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   7. SEÇÕES GERAIS
+   ============================================ */
+
+section {
+    padding: var(--spacing-2xl) var(--spacing-md);
+    position: relative;
+    z-index: 10;
+}
+
+.section-title {
+    font-family: var(--font-primary);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.section-subtitle {
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ============================================
+   8. SEÇÃO SOBRE
+   ============================================ */
+
+.about {
+    background: linear-gradient(135deg, #F1F8F4 0%, #E8F5E9 100%);
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tab-button {
+    background: var(--white);
+    color: var(--text-dark);
+    border: 2px solid var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tab-button.active {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.tab-button:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.tab-content {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.tab-pane p {
+    font-family: var(--font-secondary);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ============================================
+   9. SEÇÃO TECNOLOGIA
+   ============================================ */
+
+.technology {
+    background: var(--white);
+}
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.tech-card {
+    background: linear-gradient(135deg, #F1F8F4, #E8F5E9);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--primary-light);
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: slideIn 0.6s ease-out;
+}
+
+.tech-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tech-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.tech-card h3 {
+    font-family: var(--font-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.tech-card p {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   10. SEÇÃO SUSTENTABILIDADE
+   ============================================ */
+
+.sustainability {
+    background: linear-gradient(135deg, #E8F5E9 0%, #F1F8F4 100%);
+}
+
+.sustainability-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .sustainability-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sustainability-image {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+}
+
+.practices-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.practice-item {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--primary-light);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.practice-item.active {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.practice-item:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.practice-item h4 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.practice-item p {
+    font-family: var(--font-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.practice-item .impact {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   11. SEÇÃO CASOS DE SUCESSO
+   ============================================ */
+
+.cases {
+    background: var(--white);
+}
+
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.case-card {
+    background: linear-gradient(135deg, #F1F8F4, #E8F5E9);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--primary-light);
+    transition: all 0.3s;
+    animation: slideIn 0.6s ease-out;
+}
+
+.case-card:hover {
+    transform: translateY(-8px);
+}
+
+.case-card h3 {
+    font-family: var(--font-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.case-card p {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.case-card .location {
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.cases-image {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   12. SEÇÃO EDUCAÇÃO
+   ============================================ */
+
+.education {
+    background: linear-gradient(135deg, #E8F5E9 0%, #F1F8F4 100%);
+}
+
+.education-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .education-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.education-image {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+}
+
+.quiz-container h3 {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+.quiz-question {
+    margin-bottom: 1.5rem;
+}
+
+.quiz-question p {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.quiz-question label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    color: var(--text-light);
+}
+
+.quiz-question input[type="radio"] {
+    cursor: pointer;
+}
+
+.quiz-result {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    display: none;
+}
+
+.quiz-result.show {
+    display: block;
+}
+
+/* ============================================
+   13. SEÇÃO CONTATO
+   ============================================ */
+
+.contact {
+    background: var(--white);
+}
+
+.contact-form {
+    background: linear-gradient(135deg, #F1F8F4, #E8F5E9);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--primary-light);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--primary-light);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.form-message {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    margin-top: 1.5rem;
+    text-align: center;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    display: none;
+}
+
+.form-message.show {
+    display: block;
+}
+
+/* ============================================
+   14. FOOTER
+   ============================================ */
+
+.footer {
+    background: var(--text-dark);
+    color: var(--background-lighter);
+    padding: 3rem var(--spacing-md);
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-text {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.footer-copyright {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* ============================================
+   15. BOTÃO VOLTAR AO TOPO
+   ============================================ */
+
+.scroll-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 99;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s;
+    display: none;
+    animation: slideUp 0.3s ease-out;
+}
+
+.scroll-top.show {
+    display: block;
+}
+
+.scroll-top:hover {
+    transform: scale(1.1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   16. RESPONSIVIDADE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    section {
+        padding: var(--spacing-xl) var(--spacing-sm);
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        width: 100%;
+    }
+}

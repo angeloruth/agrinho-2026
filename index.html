@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Forte, Futuro Sustentável - Concurso Agrinho 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-icon">🌱</span>
+                <span class="logo-text">AgroFuture</span>
+            </div>
+            <button id="menu-toggle" class="menu-toggle">☰</button>
+            <ul id="nav-menu" class="nav-menu">
+                <li><a href="#home" class="nav-link">Início</a></li>
+                <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li><a href="#tecnologia" class="nav-link">Tecnologia</a></li>
+                <li><a href="#sustentabilidade" class="nav-link">Sustentabilidade</a></li>
+                <li><a href="#casos" class="nav-link">Casos</a></li>
+                <li><a href="#educacao" class="nav-link">Educação</a></li>
+                <li><a href="#contato" class="nav-link">Contato</a></li>
+            </ul>
+            <button id="cta-button" class="cta-button">Participar</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663664542213/457HJRpMimTT6PRz9uaFQx/hero-agro-banner-Wxtnrcda8qzYbWUydyaMzp.webp" alt="Agricultura Sustentável" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Agro Forte, <span class="highlight">Futuro Sustentável</span></h1>
+            <p class="hero-subtitle">Produzir com responsabilidade é garantir alimento, inovação e preservação para as futuras gerações.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('sobre')">Saiba Mais</button>
+                <button class="btn btn-secondary" onclick="scrollToSection('tecnologia')">Tecnologias Sustentáveis</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <h2 class="section-title">Sobre o Agro Sustentável</h2>
+            <p class="section-subtitle">Entenda a importância de equilibrar produção agrícola com preservação ambiental</p>
+            
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(0)">Importância do Agronegócio</button>
+                <button class="tab-button" onclick="switchTab(1)">Desafios Atuais</button>
+                <button class="tab-button" onclick="switchTab(2)">Soluções Sustentáveis</button>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-0">
+                    <p>O agronegócio é fundamental para a economia brasileira, gerando empregos, renda e alimentos. Porém, sua expansão deve ser equilibrada com a preservação ambiental. A sustentabilidade no agro não é apenas uma responsabilidade ambiental, mas também uma oportunidade de negócio que garante a viabilidade econômica das propriedades rurais a longo prazo.</p>
+                </div>
+                <div class="tab-pane" id="tab-1">
+                    <p>Desmatamento, uso excessivo de água e emissão de carbono são desafios críticos. Precisamos de soluções inovadoras que conciliem produção com sustentabilidade. A degradação do solo, a perda de biodiversidade e as mudanças climáticas ameaçam a produtividade agrícola global. Enfrentar esses desafios requer comprometimento com práticas responsáveis.</p>
+                </div>
+                <div class="tab-pane" id="tab-2">
+                    <p>Rotação de culturas, agricultura de precisão e energia renovável são práticas que aumentam a produtividade enquanto preservam o meio ambiente. Tecnologias como drones, sensores inteligentes e inteligência artificial permitem otimizar o uso de recursos, reduzindo desperdícios e impactos ambientais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="tecnologia" class="technology">
+        <div class="container">
+            <h2 class="section-title">Tecnologia no Campo</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">🚁</div>
+                    <h3>Drones Agrícolas</h3>
+                    <p>Monitoramento aéreo de plantações em tempo real</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">📡</div>
+                    <h3>Sensores Inteligentes</h3>
+                    <p>Coleta de dados em tempo real do solo e clima</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">💧</div>
+                    <h3>Irrigação Automatizada</h3>
+                    <p>Uso eficiente de água com sistemas inteligentes</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🤖</div>
+                    <h3>Inteligência Artificial</h3>
+                    <p>Previsões e otimizações baseadas em dados</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">⚙️</div>
+                    <h3>Máquinas Sustentáveis</h3>
+                    <p>Equipamentos de baixo impacto ambiental</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">☀️</div>
+                    <h3>Energia Renovável</h3>
+                    <p>Painéis solares e turbinas eólicas no campo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Section -->
+    <section id="sustentabilidade" class="sustainability">
+        <div class="container">
+            <h2 class="section-title">Sustentabilidade e Meio Ambiente</h2>
+            
+            <div class="sustainability-grid">
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663664542213/457HJRpMimTT6PRz9uaFQx/sustainability-focus-2KQ6PDdVK87U2C9mgrkhVp.webp" alt="Práticas Sustentáveis" class="sustainability-image">
+                
+                <div class="practices-list">
+                    <div class="practice-item active" onclick="selectPractice(0)">
+                        <h4>Preservação do Solo</h4>
+                        <p>Práticas de manejo que mantêm a fertilidade natural</p>
+                        <span class="impact">↑ 45% produtividade</span>
+                    </div>
+                    <div class="practice-item" onclick="selectPractice(1)">
+                        <h4>Redução de Agrotóxicos</h4>
+                        <p>Controle biológico e manejo integrado de pragas</p>
+                        <span class="impact">↓ 60% resíduos</span>
+                    </div>
+                    <div class="practice-item" onclick="selectPractice(2)">
+                        <h4>Reflorestamento</h4>
+                        <p>Restauração de áreas degradadas com espécies nativas</p>
+                        <span class="impact">↑ 80% biodiversidade</span>
+                    </div>
+                    <div class="practice-item" onclick="selectPractice(3)">
+                        <h4>Uso Consciente de Água</h4>
+                        <p>Sistemas de irrigação eficientes e reuso de água</p>
+                        <span class="impact">↓ 50% consumo</span>
+                    </div>
+                    <div class="practice-item" onclick="selectPractice(4)">
+                        <h4>Economia Circular</h4>
+                        <p>Aproveitamento de resíduos como insumos</p>
+                        <span class="impact">↓ 70% desperdício</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Cases Section -->
+    <section id="casos" class="cases">
+        <div class="container">
+            <h2 class="section-title">Casos de Sucesso</h2>
+            
+            <div class="cases-grid">
+                <div class="case-card">
+                    <h3>Fazenda Verde Brasil</h3>
+                    <p>Implementação de agricultura regenerativa aumentou produção em 40%</p>
+                    <span class="location">📍 Mato Grosso</span>
+                </div>
+                <div class="case-card">
+                    <h3>Cooperativa Sustentável</h3>
+                    <p>Uso de energia solar reduziu custos operacionais em 35%</p>
+                    <span class="location">📍 São Paulo</span>
+                </div>
+                <div class="case-card">
+                    <h3>Projeto Inovação Rural</h3>
+                    <p>Drones e IA otimizaram irrigação economizando 50% de água</p>
+                    <span class="location">📍 Paraná</span>
+                </div>
+            </div>
+
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663664542213/457HJRpMimTT6PRz9uaFQx/success-cases-e9XS4NmAdABmdywE5c6uSx.webp" alt="Casos de Sucesso" class="cases-image">
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="educacao" class="education">
+        <div class="container">
+            <h2 class="section-title">Educação e Futuro</h2>
+            
+            <div class="education-grid">
+                <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663664542213/457HJRpMimTT6PRz9uaFQx/education-future-Q4vufF4ptxZBeo6rFYWD45.webp" alt="Educação Agrícola" class="education-image">
+                
+                <div class="quiz-container">
+                    <h3>Quiz: Você conhece práticas sustentáveis?</h3>
+                    
+                    <div id="quiz-questions"></div>
+                    
+                    <button class="btn btn-primary" onclick="submitQuiz()">Ver Resultado</button>
+                    <div id="quiz-result" class="quiz-result"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="contact">
+        <div class="container">
+            <h2 class="section-title">Participe do Movimento</h2>
+            <p class="section-subtitle">Junte-se a nós na construção de um futuro agrícola mais sustentável</p>
+            
+            <form id="contact-form" class="contact-form" onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensagem</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+            </form>
+            <div id="form-message" class="form-message"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">🌱 AgroFuture — Agro Forte, Futuro Sustentável</p>
+            <p class="footer-copyright">© 2026 Todos os direitos reservados. Desenvolvido com paixão pela sustentabilidade.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="scroll-top" onclick="scrollToTop()">↑</button>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
