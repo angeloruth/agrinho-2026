@@ -1,16 +1,7 @@
-/* ============================================
-   AGRINHO 2026 - AGRO FORTE, FUTURO SUSTENTÁVEL
-   JavaScript - Projeto Front-End HTML/CSS/JS
-   ============================================ */
+// Agrinho 2026 - Agro Forte, Futuro Sustentável
+// JavaScript - Projeto Front-End
 
-// ============================================
-// 1. CONFIGURAÇÃO INICIAL E DADOS
-// ============================================
-
-/**
- * Dados do Quiz sobre Sustentabilidade Agrícola
- * Cada questão contém pergunta, opções e índice da resposta correta
- */
+// Dados do quiz sobre sustentabilidade
 const quizData = [
     {
         question: "Qual é o impacto da rotação de culturas?",
@@ -29,17 +20,9 @@ const quizData = [
     }
 ];
 
-// Variável para armazenar respostas do usuário
 let quizAnswers = {};
 
-// ============================================
-// 2. INICIALIZAÇÃO
-// ============================================
-
-/**
- * Função executada quando o DOM está pronto
- * Inicializa todos os event listeners e componentes
- */
+// Inicializa quando a página carrega
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
     initializeQuiz();
@@ -47,22 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFormListener();
 });
 
-// ============================================
-// 3. NAVEGAÇÃO
-// ============================================
-
-/**
- * Inicializa funcionalidades da navegação
- * - Menu mobile
- * - Scroll reveal da navbar
- * - Links de navegação
- */
+// Configurar navegação e menu mobile
 function initializeNavigation() {
     const menuToggle = document.getElementById('menu-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navbar = document.getElementById('navbar');
     
-    // Toggle do menu mobile
+    // Abrir/fechar menu mobile
     menuToggle.addEventListener('click', function() {
         navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
     });
@@ -75,7 +49,7 @@ function initializeNavigation() {
         });
     });
     
-    // Scroll reveal da navbar
+    // Mudar cor da navbar ao rolar
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -84,17 +58,14 @@ function initializeNavigation() {
         }
     });
     
-    // CTA Button
+    // Botão CTA
     const ctaButton = document.getElementById('cta-button');
     ctaButton.addEventListener('click', function() {
         scrollToSection('contato');
     });
 }
 
-/**
- * Função para rolar até uma seção específica
- * @param {string} sectionId - ID da seção para rolar
- */
+// Rolar até uma seção
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -102,110 +73,42 @@ function scrollToSection(sectionId) {
     }
 }
 
-/**
- * Função para rolar até o topo da página
- */
+// Voltar ao topo
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ============================================
-// 4. SCROLL LISTENERS
-// ============================================
-
-/**
- * Configura listeners para eventos de scroll
- * - Mostra/oculta botão de voltar ao topo
- */
-function setupScrollListeners() {
-    const scrollTopButton = document.getElementById('scroll-top');
-    
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            scrollTopButton.classList.add('show');
-        } else {
-            scrollTopButton.classList.remove('show');
-        }
-    });
-}
-
-// ============================================
-// 5. ABAS (TABS)
-// ============================================
-
-/**
- * Alterna entre abas na seção "Sobre"
- * @param {number} tabIndex - Índice da aba a exibir (0, 1, ou 2)
- */
-function switchTab(tabIndex) {
-    // Oculta todas as abas
-    const allPanes = document.querySelectorAll('.tab-pane');
-    allPanes.forEach(pane => {
-        pane.classList.remove('active');
-    });
-    
-    // Remove classe active de todos os botões
-    const allButtons = document.querySelectorAll('.tab-button');
-    allButtons.forEach(button => {
-        button.classList.remove('active');
-    });
-    
-    // Mostra aba selecionada
-    const selectedPane = document.getElementById(`tab-${tabIndex}`);
-    if (selectedPane) {
-        selectedPane.classList.add('active');
+// Mostrar/esconder botão voltar ao topo
+window.addEventListener('scroll', function() {
+    const scrollTopBtn = document.getElementById('scroll-top');
+    if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('show');
+    } else {
+        scrollTopBtn.classList.remove('show');
     }
-    
-    // Marca botão como ativo
-    allButtons[tabIndex].classList.add('active');
-}
+});
 
-// ============================================
-// 6. SELEÇÃO DE PRÁTICAS SUSTENTÁVEIS
-// ============================================
-
-/**
- * Seleciona uma prática sustentável na seção de Sustentabilidade
- * @param {number} practiceIndex - Índice da prática a selecionar
- */
-function selectPractice(practiceIndex) {
-    // Remove classe active de todos os itens
-    const allPractices = document.querySelectorAll('.practice-item');
-    allPractices.forEach(practice => {
-        practice.classList.remove('active');
-    });
-    
-    // Adiciona classe active ao item selecionado
-    allPractices[practiceIndex].classList.add('active');
-}
-
-// ============================================
-// 7. QUIZ
-// ============================================
-
-/**
- * Inicializa o quiz renderizando as questões
- */
+// Inicializar quiz
 function initializeQuiz() {
     const quizContainer = document.getElementById('quiz-questions');
     
-    quizData.forEach((q, index) => {
+    // Criar as questões
+    quizData.forEach((item, index) => {
         const questionDiv = document.createElement('div');
         questionDiv.className = 'quiz-question';
         
         let optionsHTML = '';
-        q.options.forEach((option, optIndex) => {
+        item.options.forEach((option, optIndex) => {
             optionsHTML += `
                 <label>
-                    <input type="radio" name="q${index}" value="${optIndex}" 
-                           onchange="quizAnswers[${index}] = '${optIndex}'">
+                    <input type="radio" name="question${index}" value="${optIndex}">
                     ${option}
                 </label>
             `;
         });
         
         questionDiv.innerHTML = `
-            <p>${index + 1}. ${q.question}</p>
+            <p>${index + 1}. ${item.question}</p>
             ${optionsHTML}
         `;
         
@@ -213,126 +116,122 @@ function initializeQuiz() {
     });
 }
 
-/**
- * Calcula e exibe o resultado do quiz
- */
+// Enviar quiz e mostrar resultado
 function submitQuiz() {
     let score = 0;
     
-    // Verifica respostas corretas
-    quizData.forEach((q, index) => {
-        if (parseInt(quizAnswers[index]) === q.correct) {
+    // Verificar respostas
+    quizData.forEach((item, index) => {
+        const selected = document.querySelector(`input[name="question${index}"]:checked`);
+        if (selected && parseInt(selected.value) === item.correct) {
             score++;
         }
     });
     
-    // Exibe resultado
+    // Mostrar resultado
     const resultDiv = document.getElementById('quiz-result');
     const percentage = Math.round((score / quizData.length) * 100);
     
     resultDiv.innerHTML = `
-        <p>Você acertou <strong>${score} de ${quizData.length}</strong> questões!</p>
-        <p>Desempenho: <strong>${percentage}%</strong></p>
+        <p>Sua pontuação:</p>
+        <p><strong>${score} de ${quizData.length}</strong></p>
+        <p><strong>${percentage}%</strong></p>
     `;
+    
     resultDiv.classList.add('show');
 }
 
-// ============================================
-// 8. FORMULÁRIO DE CONTATO
-// ============================================
+// Abas na seção Sobre
+function switchTab(tabIndex) {
+    // Esconder todos os painéis
+    const panes = document.querySelectorAll('.tab-pane');
+    panes.forEach(pane => pane.classList.remove('active'));
+    
+    // Remover classe active de todos os botões
+    const buttons = document.querySelectorAll('.tab-button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    // Mostrar painel selecionado
+    const selectedPane = document.getElementById(`tab-${tabIndex}`);
+    if (selectedPane) {
+        selectedPane.classList.add('active');
+    }
+    
+    // Ativar botão selecionado
+    buttons[tabIndex].classList.add('active');
+}
 
-/**
- * Configura listener para o formulário de contato
- */
+// Selecionar prática sustentável
+function selectPractice(index) {
+    const practices = document.querySelectorAll('.practice-item');
+    practices.forEach(practice => practice.classList.remove('active'));
+    practices[index].classList.add('active');
+}
+
+// Listeners para scroll
+function setupScrollListeners() {
+    // Animar elementos ao entrar na viewport
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+    const elements = document.querySelectorAll('.tech-card, .case-card');
+    elements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'all 0.6s ease';
+        observer.observe(el);
+    });
+}
+
+// Formulário de contato
 function setupFormListener() {
     const form = document.getElementById('contact-form');
-    form.addEventListener('submit', submitForm);
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        
+        // Validar campos
+        if (!name || !email || !message) {
+            showFormMessage('Por favor, preencha todos os campos', 'error');
+            return;
+        }
+        
+        // Validar email
+        if (!isValidEmail(email)) {
+            showFormMessage('Por favor, insira um email válido', 'error');
+            return;
+        }
+        
+        // Simular envio
+        showFormMessage('Mensagem enviada com sucesso! Obrigado por participar.', 'success');
+        form.reset();
+    });
 }
 
-/**
- * Submete o formulário de contato
- * @param {Event} event - Evento do formulário
- */
-function submitForm(event) {
-    event.preventDefault();
-    
-    // Obtém valores do formulário
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // Valida campos
-    if (name && email && message) {
-        // Exibe mensagem de sucesso
-        const messageDiv = document.getElementById('form-message');
-        messageDiv.innerHTML = '✓ Mensagem enviada com sucesso!';
-        messageDiv.classList.add('show');
-        
-        // Limpa formulário
-        document.getElementById('contact-form').reset();
-        
-        // Remove mensagem após 3 segundos
-        setTimeout(() => {
-            messageDiv.classList.remove('show');
-        }, 3000);
-    }
+// Validar email
+function isValidEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
 }
 
-// ============================================
-// 9. UTILITÁRIOS
-// ============================================
-
-/**
- * Função auxiliar para adicionar classe com delay
- * Útil para animações em cascata
- * @param {Element} element - Elemento a animar
- * @param {string} className - Classe a adicionar
- * @param {number} delay - Delay em milissegundos
- */
-function addClassWithDelay(element, className, delay) {
+// Mostrar mensagem do formulário
+function showFormMessage(message, type) {
+    const messageDiv = document.getElementById('form-message');
+    messageDiv.textContent = message;
+    messageDiv.className = `form-message ${type}`;
+    
+    // Esconder mensagem após 5 segundos
     setTimeout(() => {
-        element.classList.add(className);
-    }, delay);
+        messageDiv.className = 'form-message';
+    }, 5000);
 }
-
-/**
- * Função auxiliar para remover classe
- * @param {Element} element - Elemento
- * @param {string} className - Classe a remover
- */
-function removeClass(element, className) {
-    element.classList.remove(className);
-}
-
-// ============================================
-// 10. EVENT LISTENERS GLOBAIS
-// ============================================
-
-/**
- * Listener para detectar cliques fora de menus
- * Fecha menu mobile ao clicar fora
- */
-document.addEventListener('click', function(event) {
-    const navbar = document.getElementById('navbar');
-    const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    
-    if (!navbar.contains(event.target)) {
-        navMenu.style.display = 'none';
-    }
-});
-
-/**
- * Listener para tecla Escape
- * Fecha menu mobile ao pressionar Escape
- */
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        const navMenu = document.getElementById('nav-menu');
-        navMenu.style.display = 'none';
-    }
-});
-
-// ============================================
-// FIM DO SCRIPT
-// ============================================
