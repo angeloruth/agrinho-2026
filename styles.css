@@ -696,8 +696,88 @@ section {
     transform: translateY(-3px);
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+/* Link para pular para conteúdo principal */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--cor-verde);
+    color: var(--cor-branco);
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Foco visível para navegação por teclado */
+:focus-visible {
+    outline: 3px solid var(--cor-verde);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--cor-verde);
+    outline-offset: 2px;
+}
+
+/* Responsividade - Mobile (até 480px) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-buttons {
+        gap: 8px;
+        flex-direction: column;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+    
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sustainability-grid,
+    .education-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cases-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-form {
+        padding: 20px;
+    }
+    
+    .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* Responsividade - Tablet (481px até 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
     .hero-title {
         font-size: 2rem;
     }
@@ -717,5 +797,48 @@ section {
     .btn {
         padding: 10px 20px;
         font-size: 0.95rem;
+    }
+    
+    .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cases-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsividade - Desktop (acima de 769px) */
+@media (min-width: 769px) {
+    .tech-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .cases-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Reduzir animações para usuários que preferem movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Modo escuro - respeitar preferência do sistema */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+    }
+    
+    .tab-content,
+    .quiz-container,
+    .contact-form {
+        background: #2a2a2a;
+        color: #e0e0e0;
     }
 }
