@@ -13,11 +13,6 @@
 <body>
     <!-- Pular para conteúdo principal -->
     <a href="#main-content" class="skip-link">⏭️ Pular para conteúdo principal</a>
-    
-    <!-- Badge de Acessibilidade -->
-    <div class="accessibility-badge" title="Este site segue as diretrizes WCAG 2.1 de acessibilidade">
-        <span aria-label="Acessível WCAG 2.1">♿ Acessível</span>
-    </div>
 
     <!-- Navegação -->
     <nav id="navbar" class="navbar" role="navigation" aria-label="Navegação principal">
@@ -26,8 +21,11 @@
                 <span class="logo-icon" aria-hidden="true">🌱</span>
                 <span class="logo-text">AgroFuturo</span>
             </div>
+            <!-- MELHORIA: menu-toggle agora controla classe CSS em vez de style direto -->
             <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
-                <span aria-hidden="true">☰</span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
             </button>
             <ul id="nav-menu" class="nav-menu">
                 <li><a href="#home" class="nav-link">Início</a></li>
@@ -49,7 +47,8 @@
             <img src="assets/banner-heroi-agro.webp" alt="Paisagem agrícola com plantações verdes ao pôr do sol" class="hero-image">
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h1 id="hero-title" class="hero-title">Agro Forte, <span class="highlight">Futuro Sustentável</span></h1>
+                <!-- MELHORIA: título em uma linha só no mobile com nowrap no span -->
+                <h1 id="hero-title" class="hero-title">Agro Forte,&nbsp;<span class="highlight">Futuro Sustentável</span></h1>
                 <p class="hero-subtitle">Produzir com responsabilidade é garantir alimento, inovação e preservação para as futuras gerações.</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="scrollToSection('sobre')" aria-label="Saiba mais sobre agro sustentável">Saiba Mais</button>
@@ -71,13 +70,13 @@
                 </div>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab-0" role="tabpanel" aria-labelledby="tab-0">
+                    <div class="tab-pane active" id="tab-0" role="tabpanel">
                         <p>O agronegócio é fundamental para a economia brasileira, gerando empregos, renda e alimentos. Porém, sua expansão deve ser equilibrada com a preservação ambiental. A sustentabilidade no agro não é apenas uma responsabilidade ambiental, mas também uma oportunidade de negócio que garante a viabilidade econômica das propriedades rurais a longo prazo.</p>
                     </div>
-                    <div class="tab-pane" id="tab-1" role="tabpanel" aria-labelledby="tab-1">
+                    <div class="tab-pane" id="tab-1" role="tabpanel">
                         <p>Desmatamento, uso excessivo de água e emissão de carbono são desafios críticos. Precisamos de soluções inovadoras que conciliem produção com sustentabilidade. A degradação do solo, a perda de biodiversidade e as mudanças climáticas ameaçam a produtividade agrícola global. Enfrentar esses desafios requer comprometimento com práticas responsáveis.</p>
                     </div>
-                    <div class="tab-pane" id="tab-2" role="tabpanel" aria-labelledby="tab-2">
+                    <div class="tab-pane" id="tab-2" role="tabpanel">
                         <p>Rotação de culturas, agricultura de precisão e energia renovável são práticas que aumentam a produtividade enquanto preservam o meio ambiente. Tecnologias como drones, sensores inteligentes e inteligência artificial permitem otimizar o uso de recursos, reduzindo desperdícios e impactos ambientais.</p>
                     </div>
                 </div>
@@ -200,9 +199,7 @@
                     
                     <div class="quiz-container">
                         <h3>Quiz: Você conhece práticas sustentáveis?</h3>
-                        
                         <div id="quiz-questions" role="form" aria-label="Quiz sobre sustentabilidade"></div>
-                        
                         <button class="btn btn-primary" onclick="submitQuiz()" aria-label="Enviar respostas do quiz">Ver Resultado</button>
                         <div id="quiz-result" class="quiz-result" role="status" aria-live="polite"></div>
                     </div>
@@ -211,42 +208,86 @@
         </section>
 
         <!-- Seção Contato -->
+        <!-- MELHORIA: Formulário integrado com EmailJS -->
         <section id="contato" class="contact" aria-labelledby="contact-title">
             <div class="container">
                 <h2 id="contact-title" class="section-title">Participe do Movimento</h2>
                 <p class="section-subtitle">Junte-se a nós na construção de um futuro agrícola mais sustentável</p>
                 
-                <form id="contact-form" class="contact-form" onsubmit="submitForm(event)" aria-label="Formulário de contato">
+                <form id="contact-form" class="contact-form" aria-label="Formulário de contato">
                     <div class="form-group">
                         <label for="name">Nome <span aria-label="obrigatório">*</span></label>
-                        <input type="text" id="name" name="name" required aria-required="true">
+                        <input type="text" id="name" name="name" required aria-required="true" placeholder="Seu nome completo">
                     </div>
                     <div class="form-group">
                         <label for="email">Email <span aria-label="obrigatório">*</span></label>
-                        <input type="email" id="email" name="email" required aria-required="true">
+                        <input type="email" id="email" name="email" required aria-required="true" placeholder="seu@email.com">
                     </div>
                     <div class="form-group">
                         <label for="message">Mensagem <span aria-label="obrigatório">*</span></label>
-                        <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                        <textarea id="message" name="message" rows="5" required aria-required="true" placeholder="Escreva sua mensagem aqui..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" aria-label="Enviar formulário de contato">Enviar Mensagem</button>
+                    <button type="submit" class="btn btn-primary" id="submit-btn" aria-label="Enviar formulário de contato">
+                        <span id="submit-text">Enviar Mensagem</span>
+                        <span id="submit-loading" style="display:none">⏳ Enviando...</span>
+                    </button>
                 </form>
                 <div id="form-message" class="form-message" role="status" aria-live="polite"></div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- MELHORIA: Footer com mais conteúdo -->
     <footer class="footer" role="contentinfo">
         <div class="container">
-            <p class="footer-text">🌱 AgroFuture — Agro Forte, Futuro Sustentável</p>
-            <p class="footer-copyright">© 2026 Todos os direitos reservados. Desenvolvido com paixão pela sustentabilidade.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span aria-hidden="true">🌱</span>
+                        <strong>AgroFuturo</strong>
+                    </div>
+                    <p class="footer-tagline">Agro Forte, Futuro Sustentável</p>
+                    <p class="footer-description">Projeto educativo desenvolvido para o Concurso Agrinho 2026, promovido pelo Sistema FAEP/SENAR-PR.</p>
+                    <!-- MELHORIA: Badge acessibilidade movido para o footer -->
+                    <div class="footer-accessibility" title="Este site segue as diretrizes WCAG 2.1 de acessibilidade">
+                        <span aria-label="Acessível WCAG 2.1">♿ Acessível WCAG 2.1</span>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#tecnologia">Tecnologia</a></li>
+                        <li><a href="#sustentabilidade">Sustentabilidade</a></li>
+                        <li><a href="#casos">Casos de Sucesso</a></li>
+                        <li><a href="#educacao">Educação</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-info">
+                    <h4>Sobre o Agrinho</h4>
+                    <p>O Agrinho é um programa socioeducativo do Sistema FAEP/SENAR-PR que conecta o campo e a cidade, promovendo educação para a sustentabilidade desde 1995.</p>
+                    <a href="https://www.agrinho.com.br" target="_blank" rel="noopener noreferrer" class="footer-ext-link">
+                        🔗 Site Oficial do Agrinho
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 AgroFuturo — Todos os direitos reservados.</p>
+                <p class="footer-credits">Desenvolvido com 💚 para o Concurso Agrinho 2026 · Paraná, Brasil</p>
+            </div>
         </div>
     </footer>
 
     <!-- Botão voltar ao topo -->
     <button id="scroll-top" class="scroll-top" onclick="scrollToTop()" aria-label="Voltar ao topo da página">↑</button>
 
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
