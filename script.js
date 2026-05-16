@@ -1,176 +1,270 @@
 // Agrinho 2026 - Agro Forte, Futuro Sustentável
-// JavaScript - Projeto Front-End
+// JavaScript — versão melhorada
 
-// Dados do quiz sobre sustentabilidade
+// ============================================================
+// CONFIGURAÇÃO EMAILJS
+// ============================================================
+// Para ativar o envio real de emails:
+// 1. Crie uma conta gratuita em https://www.emailjs.com
+// 2. Crie um "Email Service" (Gmail, Outlook, etc.)
+// 3. Crie um "Email Template" com as variáveis: {{from_name}}, {{from_email}}, {{message}}
+// 4. Substitua os valores abaixo pelos seus IDs reais:
+const EMAILJS_CONFIG = {
+    publicKey:  'SEU_PUBLIC_KEY',   // Aba Account > API Keys
+    serviceId:  'SEU_SERVICE_ID',   // Aba Email Services
+    templateId: 'SEU_TEMPLATE_ID'   // Aba Email Templates
+};
+
+// ============================================================
+// DADOS DO QUIZ
+// ============================================================
 const quizData = [
     {
         question: "Qual é o impacto da rotação de culturas?",
-        options: ["Aumenta custos", "Melhora saúde do solo", "Reduz produção"],
+        options: ["Aumenta os custos de produção", "Melhora a saúde do solo", "Reduz a produção agrícola"],
         correct: 1
     },
     {
         question: "Quanto de água pode ser economizado com irrigação eficiente?",
-        options: ["10%", "30%", "50%"],
+        options: ["Cerca de 10%", "Cerca de 30%", "Cerca de 50%"],
         correct: 2
     },
     {
-        question: "Qual tecnologia monitora plantações em tempo real?",
-        options: ["Drones com sensores", "Telescópios", "Radares"],
+        question: "Qual tecnologia monitora plantações em tempo real pelo ar?",
+        options: ["Drones com sensores", "Telescópios especiais", "Radares meteorológicos"],
         correct: 0
     }
 ];
 
-let quizAnswers = {};
+let quizSubmitted = false;
 
-// Inicializa quando a página carrega
-document.addEventListener('DOMContentLoaded', function() {
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
+document.addEventListener('DOMContentLoaded', function () {
+    initEmailJS();
     initializeNavigation();
     initializeQuiz();
     setupScrollListeners();
     setupFormListener();
 });
 
-// Configurar navegação e menu mobile
+// ============================================================
+// EMAILJS
+// ============================================================
+function initEmailJS() {
+    // Só inicializa se a chave foi configurada
+    if (
+        typeof emailjs !== 'undefined' &&
+        EMAILJS_CONFIG.publicKey !== 'SEU_PUBLIC_KEY'
+    ) {
+        emailjs.init(EMAILJS_CONFIG.publicKey);
+    }
+}
+
+// ============================================================
+// NAVEGAÇÃO — MELHORIA: toggle por classe CSS, não style
+// ============================================================
 function initializeNavigation() {
     const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    const navbar = document.getElementById('navbar');
-    
-    // Abrir/fechar menu mobile
-    menuToggle.addEventListener('click', function() {
-        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+    const navMenu    = document.getElementById('nav-menu');
+    const navbar     = document.getElementById('navbar');
+
+    // Abrir/fechar menu mobile via classe
+    menuToggle.addEventListener('click', function () {
+        const isOpen = navMenu.classList.toggle('open');
+        menuToggle.classList.toggle('open', isOpen);
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        menuToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
     });
-    
+
     // Fechar menu ao clicar em um link
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            navMenu.style.display = 'none';
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('open');
+            menuToggle.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Abrir menu');
         });
     });
-    
-    // Mudar cor da navbar ao rolar
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', function (e) {
+        if (!navbar.contains(e.target)) {
+            navMenu.classList.remove('open');
+            menuToggle.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
         }
     });
-    
-    // Botão CTA
-    const ctaButton = document.getElementById('cta-button');
-    ctaButton.addEventListener('click', function() {
+
+    // Mudar estilo da navbar ao rolar
+    window.addEventListener('scroll', function () {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Botão CTA vai para contato
+    document.getElementById('cta-button').addEventListener('click', () => {
         scrollToSection('contato');
     });
 }
 
-// Rolar até uma seção
+// ============================================================
+// SCROLL HELPERS
+// ============================================================
 function scrollToSection(sectionId) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-    }
+    const el = document.getElementById(sectionId);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Voltar ao topo
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Mostrar/esconder botão voltar ao topo
-window.addEventListener('scroll', function() {
-    const scrollTopBtn = document.getElementById('scroll-top');
-    if (window.scrollY > 300) {
-        scrollTopBtn.classList.add('show');
-    } else {
-        scrollTopBtn.classList.remove('show');
-    }
+window.addEventListener('scroll', function () {
+    const btn = document.getElementById('scroll-top');
+    btn.classList.toggle('show', window.scrollY > 300);
 });
 
-// Inicializar quiz
+// ============================================================
+// QUIZ — MELHORIA: feedback visual por questão
+// ============================================================
 function initializeQuiz() {
-    const quizContainer = document.getElementById('quiz-questions');
-    
-    // Criar as questões
+    const container = document.getElementById('quiz-questions');
+    container.innerHTML = '';
+    quizSubmitted = false;
+
     quizData.forEach((item, index) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'quiz-question';
-        
-        let optionsHTML = '';
+        const div = document.createElement('div');
+        div.className = 'quiz-question';
+        div.dataset.index = index;
+
+        const questionText = document.createElement('p');
+        questionText.textContent = `${index + 1}. ${item.question}`;
+        div.appendChild(questionText);
+
         item.options.forEach((option, optIndex) => {
-            optionsHTML += `
-                <label>
-                    <input type="radio" name="question${index}" value="${optIndex}">
-                    ${option}
-                </label>
-            `;
+            const label = document.createElement('label');
+            label.setAttribute('for', `q${index}_opt${optIndex}`);
+
+            const input = document.createElement('input');
+            input.type  = 'radio';
+            input.name  = `question${index}`;
+            input.value = optIndex;
+            input.id    = `q${index}_opt${optIndex}`;
+
+            const text = document.createTextNode(option);
+            const icon = document.createElement('span');
+            icon.className = 'quiz-feedback-icon';
+
+            label.appendChild(input);
+            label.appendChild(text);
+            label.appendChild(icon);
+            div.appendChild(label);
         });
-        
-        questionDiv.innerHTML = `
-            <p>${index + 1}. ${item.question}</p>
-            ${optionsHTML}
-        `;
-        
-        quizContainer.appendChild(questionDiv);
+
+        container.appendChild(div);
     });
 }
 
-// Enviar quiz e mostrar resultado
 function submitQuiz() {
+    if (quizSubmitted) return;
+
     let score = 0;
-    
-    // Verificar respostas
+
     quizData.forEach((item, index) => {
-        const selected = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selected && parseInt(selected.value) === item.correct) {
-            score++;
-        }
+        const questionDiv = document.querySelector(`.quiz-question[data-index="${index}"]`);
+        const selected    = document.querySelector(`input[name="question${index}"]:checked`);
+        const labels      = questionDiv.querySelectorAll('label');
+
+        // Marcar como submetida (desativa cliques)
+        questionDiv.classList.add('submitted');
+
+        labels.forEach((label, optIndex) => {
+            const icon = label.querySelector('.quiz-feedback-icon');
+            const isCorrect = optIndex === item.correct;
+            const isSelected = selected && parseInt(selected.value) === optIndex;
+
+            if (isSelected && isCorrect) {
+                // Resposta correta selecionada
+                label.classList.add('correct');
+                icon.textContent = '✅';
+                score++;
+            } else if (isSelected && !isCorrect) {
+                // Resposta errada selecionada
+                label.classList.add('wrong');
+                icon.textContent = '❌';
+            } else if (!isSelected && isCorrect) {
+                // Mostrar qual era a resposta certa
+                label.classList.add('correct-answer');
+                icon.textContent = '💡';
+            }
+        });
     });
-    
-    // Mostrar resultado
-    const resultDiv = document.getElementById('quiz-result');
+
+    quizSubmitted = true;
+
+    // Mostrar resultado final
     const percentage = Math.round((score / quizData.length) * 100);
-    
-    resultDiv.innerHTML = `
-        <p>Sua pontuação:</p>
-        <p><strong>${score} de ${quizData.length}</strong></p>
-        <p><strong>${percentage}%</strong></p>
-    `;
-    
-    resultDiv.classList.add('show');
-}
+    let emoji = '🌱';
+    let msg   = 'Continue aprendendo sobre sustentabilidade!';
 
-// Abas na seção Sobre
-function switchTab(tabIndex) {
-    // Esconder todos os painéis
-    const panes = document.querySelectorAll('.tab-pane');
-    panes.forEach(pane => pane.classList.remove('active'));
-    
-    // Remover classe active de todos os botões
-    const buttons = document.querySelectorAll('.tab-button');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    
-    // Mostrar painel selecionado
-    const selectedPane = document.getElementById(`tab-${tabIndex}`);
-    if (selectedPane) {
-        selectedPane.classList.add('active');
+    if (percentage === 100) {
+        emoji = '🏆';
+        msg   = 'Parabéns! Você é um especialista em sustentabilidade!';
+    } else if (percentage >= 66) {
+        emoji = '🌿';
+        msg   = 'Muito bem! Você conhece bastante sobre o tema!';
     }
-    
-    // Ativar botão selecionado
-    buttons[tabIndex].classList.add('active');
+
+    const resultDiv = document.getElementById('quiz-result');
+    resultDiv.innerHTML = `
+        <span class="quiz-emoji">${emoji}</span>
+        <p>${msg}</p>
+        <p><strong>${score} de ${quizData.length} corretas — ${percentage}%</strong></p>
+        <button class="btn-quiz-retry" onclick="retryQuiz()">🔄 Tentar novamente</button>
+    `;
+    resultDiv.classList.add('show');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// Selecionar prática sustentável
+function retryQuiz() {
+    const resultDiv = document.getElementById('quiz-result');
+    resultDiv.classList.remove('show');
+    initializeQuiz();
+}
+
+// ============================================================
+// ABAS — SEÇÃO SOBRE
+// ============================================================
+function switchTab(tabIndex) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-button').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+    });
+
+    const pane   = document.getElementById(`tab-${tabIndex}`);
+    const buttons = document.querySelectorAll('.tab-button');
+    if (pane) pane.classList.add('active');
+    if (buttons[tabIndex]) {
+        buttons[tabIndex].classList.add('active');
+        buttons[tabIndex].setAttribute('aria-selected', 'true');
+    }
+}
+
+// ============================================================
+// PRÁTICAS SUSTENTÁVEIS
+// ============================================================
 function selectPractice(index) {
-    const practices = document.querySelectorAll('.practice-item');
-    practices.forEach(practice => practice.classList.remove('active'));
-    practices[index].classList.add('active');
+    document.querySelectorAll('.practice-item').forEach(p => p.classList.remove('active'));
+    const items = document.querySelectorAll('.practice-item');
+    if (items[index]) items[index].classList.add('active');
 }
 
-// Listeners para scroll
+// ============================================================
+// ANIMAÇÕES DE SCROLL
+// ============================================================
 function setupScrollListeners() {
-    // Animar elementos ao entrar na viewport
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -178,60 +272,87 @@ function setupScrollListeners() {
                 entry.target.style.transform = 'translateY(0)';
             }
         });
-    });
-    
-    const elements = document.querySelectorAll('.tech-card, .case-card');
-    elements.forEach(el => {
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.tech-card, .case-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
 }
 
-// Formulário de contato
+// ============================================================
+// FORMULÁRIO — MELHORIA: envio real via EmailJS
+// ============================================================
 function setupFormListener() {
     const form = document.getElementById('contact-form');
-    
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-        
-        // Validar campos
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const name    = document.getElementById('name').value.trim();
+        const email   = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
         if (!name || !email || !message) {
-            showFormMessage('Por favor, preencha todos os campos', 'error');
+            showFormMessage('Por favor, preencha todos os campos.', 'error');
             return;
         }
-        
-        // Validar email
+
         if (!isValidEmail(email)) {
-            showFormMessage('Por favor, insira um email válido', 'error');
+            showFormMessage('Por favor, insira um email válido.', 'error');
             return;
         }
-        
-        // Simular envio
-        showFormMessage('Mensagem enviada com sucesso! Obrigado por participar.', 'success');
-        form.reset();
+
+        const submitBtn  = document.getElementById('submit-btn');
+        const submitText = document.getElementById('submit-text');
+        const submitLoad = document.getElementById('submit-loading');
+
+        // Estado de carregamento
+        submitBtn.disabled   = true;
+        submitText.style.display = 'none';
+        submitLoad.style.display = 'inline';
+
+        // Verificar se EmailJS está configurado
+        const emailJSConfigured =
+            typeof emailjs !== 'undefined' &&
+            EMAILJS_CONFIG.publicKey !== 'SEU_PUBLIC_KEY';
+
+        if (emailJSConfigured) {
+            try {
+                await emailjs.send(
+                    EMAILJS_CONFIG.serviceId,
+                    EMAILJS_CONFIG.templateId,
+                    { from_name: name, from_email: email, message: message }
+                );
+                showFormMessage('✅ Mensagem enviada com sucesso! Obrigado por participar.', 'success');
+                form.reset();
+            } catch (error) {
+                console.error('Erro ao enviar:', error);
+                showFormMessage('❌ Erro ao enviar. Tente novamente mais tarde.', 'error');
+            }
+        } else {
+            // Simulação (enquanto EmailJS não está configurado)
+            await new Promise(r => setTimeout(r, 1200));
+            showFormMessage('✅ Mensagem enviada com sucesso! Obrigado por participar.', 'success');
+            form.reset();
+        }
+
+        // Restaurar botão
+        submitBtn.disabled   = false;
+        submitText.style.display = 'inline';
+        submitLoad.style.display = 'none';
     });
 }
 
-// Validar email
 function isValidEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Mostrar mensagem do formulário
-function showFormMessage(message, type) {
-    const messageDiv = document.getElementById('form-message');
-    messageDiv.textContent = message;
-    messageDiv.className = `form-message ${type}`;
-    
-    // Esconder mensagem após 5 segundos
-    setTimeout(() => {
-        messageDiv.className = 'form-message';
-    }, 5000);
+function showFormMessage(msg, type) {
+    const div = document.getElementById('form-message');
+    div.textContent = msg;
+    div.className   = `form-message ${type}`;
+    setTimeout(() => { div.className = 'form-message'; }, 6000);
 }
