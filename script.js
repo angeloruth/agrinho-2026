@@ -214,72 +214,22 @@ function retryQuiz() {
 }
 
 // ============================================================
-// AJUSTE DO FORMULÁRIO PARA WEB3FORMS
+// AJUSTE DO FORMULÁRIO PARA WEB3FORMS (ENVIO NATIVO)
 // ============================================================
-
 function setupFormListener() {
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
     const submitText = document.getElementById('submit-text');
     const submitLoading = document.getElementById('submit-loading');
-    const formMessage = document.getElementById('form-message');
 
     if (!form) return;
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault(); // Impede o site de recarregar ou sair da página
-
-        // Feedback visual de carregamento
+    form.addEventListener('submit', function () {
+        // Quando o usuário clicar em enviar, apenas mudamos o botão para o modo de carregamento
         if (submitBtn && submitText && submitLoading) {
             submitText.style.display = 'none';
             submitLoading.style.display = 'inline';
             submitBtn.disabled = true;
         }
-
-        const formData = new FormData(form);
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
-
-        // Dispara o envio em segundo plano para a API
-        fetch('https://web3forms.com', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: json
-        })
-        .then(async (response) => {
-            let res = await response.json();
-            if (response.status == 200) {
-                // Sucesso!
-                formMessage.className = "form-message success";
-                formMessage.innerHTML = "🎉 Mensagem enviada com sucesso! Entraremos em contato.";
-                form.reset(); // Limpa os campos preenchidos
-            } else {
-                // Erro retornado pela API
-                formMessage.className = "form-message error";
-                formMessage.innerHTML = "❌ " + res.message;
-            }
-        })
-        .catch(error => {
-            // Erro de conexão/rede
-            formMessage.className = "form-message error";
-            formMessage.innerHTML = "❌ Algo deu errado. Verifique sua conexão.";
-        })
-        .then(() => {
-            // Restaura o botão ao estado original
-            if (submitBtn && submitText && submitLoading) {
-                submitText.style.display = 'inline';
-                submitLoading.style.display = 'none';
-                submitBtn.disabled = false;
-            }
-            // Remove a mensagem da tela após 5 segundos
-            setTimeout(() => {
-                formMessage.innerHTML = "";
-                formMessage.className = "form-message";
-            }, 5000);
-        });
     });
 }
-
