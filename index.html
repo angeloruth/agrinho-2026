@@ -207,14 +207,20 @@
             </div>
         </section>
 
-        <!-- Seção Contato -->
-        <!-- MELHORIA: Formulário integrado com EmailJS -->
+                <!-- Seção Contato -->
+        <!-- MELHORIA: Formulário integrado com Web3Forms -->
         <section id="contato" class="contact" aria-labelledby="contact-title">
             <div class="container">
                 <h2 id="contact-title" class="section-title">Participe do Movimento</h2>
                 <p class="section-subtitle">Junte-se a nós na construção de um futuro agrícola mais sustentável</p>
                 
-                <form id="contact-form" class="contact-form" aria-label="Formulário de contato">
+                <form id="contact-form" class="contact-form" aria-label="Formulário de contato" action="https://web3forms.com" method="POST">
+                    <!-- Sua chave de acesso do Web3Forms -->
+                    <input type="hidden" name="access_key" value="728c7d78-13f9-45cc-9c43-70ec9a454b70">
+                    
+                    <!-- Redireciona de volta para o site após o envio -->
+                    <input type="hidden" name="redirect" value="https://vercel.app">
+
                     <div class="form-group">
                         <label for="name">Nome <span aria-label="obrigatório">*</span></label>
                         <input type="text" id="name" name="name" required aria-required="true" placeholder="Seu nome completo">
@@ -236,6 +242,7 @@
             </div>
         </section>
     </main>
+
 
     <!-- MELHORIA: Footer com mais conteúdo -->
     <footer class="footer" role="contentinfo">
