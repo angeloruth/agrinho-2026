@@ -207,16 +207,21 @@
             </div>
         </section>
 
-                       <!-- Seção Contato -->
+                              <!-- Seção Contato -->
         <section id="contato" class="contact" aria-labelledby="contact-title">
             <div class="container">
                 <h2 id="contact-title" class="section-title">Participe do Movimento</h2>
                 <p class="section-subtitle">Junte-se a nós na construção de um futuro agrícola mais sustentável</p>
                 
-                <!-- Removemos o action do HTML para deixar o JavaScript controlar o envio sem sair da página -->
-                <form id="contact-form" class="contact-form" aria-label="Formulário de contato">
-                    <!-- Sua chave de acesso configurada -->
+                <form id="contact-form" action="https://web3forms.com" method="POST" class="contact-form" aria-label="Formulário de contato">
+                    <!-- Chave de acesso configurada de forma nativa -->
                     <input type="hidden" name="access_key" value="728c7d78-13f9-45cc-9c43-70ec9a454b70">
+                    
+                    <!-- Página para onde o usuário vai depois de enviar com sucesso (Volta para o seu site) -->
+                    <input type="hidden" name="redirect" value="https://vercel.app">
+
+                    <!-- Campo opcional para mudar o título do e-mail que você recebe -->
+                    <input type="hidden" name="subject" value="Nova mensagem do site Agrinho 2026">
 
                     <div class="form-group">
                         <label for="name">Nome <span aria-label="obrigatório">*</span></label>
@@ -239,7 +244,6 @@
             </div>
         </section>
     </main>
-
 
     <!-- MELHORIA: Footer com mais conteúdo -->
     <footer class="footer" role="contentinfo">
