@@ -91,22 +91,6 @@ body {
 
     /* Desktop: visível */
     display: flex;
-
-    /* Mobile: começa fechado com transição */
-    @media (max-width: 767px) {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(25, 75, 50, 0.98);
-        padding: 0 20px;
-        gap: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.35s ease, padding 0.35s ease;
-    }
 }
 
 /* Fallback para browsers sem @media dentro de regras */
@@ -1057,63 +1041,4 @@ section {
         padding: 20px;
     }
 
-    .scroll-top {
-        bottom: 20px;
-        right: 20px;
-        width: 45px;
-        height: 45px;
-    }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-    .section-title {
-        font-size: 1.8rem;
-    }
-
-    .tech-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .cases-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* ============================================================
-   PREFERÊNCIAS DO SISTEMA
-   ============================================================ */
-
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #1a1a1a;
-        color: #e0e0e0;
-    }
-
-    .tab-content,
-    .quiz-container,
-    .contact-form {
-        background: #2a2a2a;
-        color: #e0e0e0;
-    }
-
-    .form-group input,
-    .form-group textarea {
-        background: #333;
-        color: #e0e0e0;
-        border-color: #4CAF50;
-    }
-
-    .practice-item,
-    .case-card,
-    .tech-card {
-        background: #2a2a2a;
-    }
-}
+    .scroll-
