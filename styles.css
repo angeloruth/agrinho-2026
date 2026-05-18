@@ -88,8 +88,6 @@ body {
 .nav-menu {
     list-style: none;
     gap: 20px;
-
-    /* Desktop: visível */
     display: flex;
 }
 
@@ -267,7 +265,7 @@ body {
 
 .hero-title .highlight {
     color: var(--cor-verde-claro);
-    white-space: nowrap; /* evita quebra no meio da frase destaque */
+    white-space: nowrap;
 }
 
 .hero-subtitle {
@@ -646,7 +644,6 @@ section {
     background: #F5F5F5;
 }
 
-/* MELHORIA: feedback visual por questão */
 .quiz-question label.correct {
     background: #E8F5E9;
     border-color: var(--cor-verde);
@@ -682,7 +679,6 @@ section {
     flex-shrink: 0;
 }
 
-/* Desabilitar interação após submissão */
 .quiz-question.submitted label {
     cursor: default;
     pointer-events: none;
@@ -726,7 +722,6 @@ section {
     margin-bottom: 10px;
 }
 
-/* Botão refazer quiz */
 .btn-quiz-retry {
     background: rgba(255,255,255,0.25);
     color: var(--cor-branco);
@@ -792,25 +787,23 @@ section {
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
-/* CORREÇÃO: Forçando as mensagens do JavaScript a aparecerem com display: block */
 .form-message {
     margin-top: 20px;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
-    font-family: var(--fonte-titulo);
     font-weight: 600;
     display: none;
 }
 
 .form-message.success {
-    display: block !important;
+    display: block;
     background: #C8E6C9;
     color: var(--cor-verde-escuro);
 }
 
 .form-message.error {
-    display: block !important;
+    display: block;
     background: #FFCDD2;
     color: #C62828;
 }
@@ -864,7 +857,6 @@ section {
     margin-bottom: 16px;
 }
 
-/* Badge acessibilidade no footer */
 .footer-accessibility {
     display: inline-block;
     background: rgba(76, 175, 80, 0.25);
@@ -1037,3 +1029,21 @@ section {
 
     .contact-form {
         padding: 20px;
+    }
+
+    .tab-content {
+        padding: 20px;
+    }
+
+    .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+    
