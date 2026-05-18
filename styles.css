@@ -792,23 +792,25 @@ section {
     box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
+/* CORREÇÃO: Forçando as mensagens do JavaScript a aparecerem com display: block */
 .form-message {
     margin-top: 20px;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
+    font-family: var(--fonte-titulo);
     font-weight: 600;
     display: none;
 }
 
 .form-message.success {
-    display: block;
+    display: block !important;
     background: #C8E6C9;
     color: var(--cor-verde-escuro);
 }
 
 .form-message.error {
-    display: block;
+    display: block !important;
     background: #FFCDD2;
     color: #C62828;
 }
@@ -1035,10 +1037,3 @@ section {
 
     .contact-form {
         padding: 20px;
-    }
-
-    .tab-content {
-        padding: 20px;
-    }
-
-    .scroll-
